@@ -2,6 +2,7 @@ package testUtils;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
@@ -18,7 +19,9 @@ public class WebDriverFactory
             switch (browserName) {
                 case "chrome":
                     System.setProperty("webdriver.chrome.driver", "C:\\Users\\onechiforescu\\IdeaProjects\\chromedriver_win32\\chromedriver.exe");
-                    webDriver = new ChromeDriver();
+                    ChromeOptions options = new ChromeOptions();
+                    options.addArguments("headless");
+                    webDriver = new ChromeDriver(options);
                     break;
                 case "ie":
                     webDriver = new InternetExplorerDriver();

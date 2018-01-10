@@ -4,26 +4,33 @@ import ru.yandex.qatools.properties.PropertyLoader;
 import ru.yandex.qatools.properties.annotations.Property;
 import ru.yandex.qatools.properties.annotations.Resource;
 
-@Resource.Classpath("test.properties")
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 public class TestProperties
 {
+    Properties configProp;
+
     public TestProperties()
     {
-        PropertyLoader.populate(this);
+        configProp = new Properties();
+        InputStream in = this.getClass().getClassLoader().getResourceAsStream(System.getProperty("testProperties"));
+        try {
+            configProp.load(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        PropertyLoader.populate(configProp);
     }
-
-    @Property("url")
-    private String url;
-    @Property("browser")
-    private String browser;
 
     public String getUrl()
     {
-        return url;
+        return configProp.getProperty("url");
     }
 
     public String getBrowser()
     {
-        return browser;
+        return configProp.getProperty("browser");
     }
 }

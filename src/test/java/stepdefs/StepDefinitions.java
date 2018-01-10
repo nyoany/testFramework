@@ -7,12 +7,15 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.AssertJUnit;
 
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
@@ -49,12 +52,21 @@ public class StepDefinitions {
 
     @Then("^the results contain the link (.*)$")
     public void theResultsContainTheLink(final String link) throws Throwable {
-        getWebDriverWait().until(visibilityOf(getDriver().findElement(By.id("top_nav"))));
+
+//        getWebDriverWait().until();
         List<WebElement> links = getDriver().findElements(By.cssSelector("._NId .s cite._Rm"));
         Optional<WebElement> foundElement = links.stream().filter(
                 element -> element.getText().equals(link)).findFirst();
         assertNotNull(foundElement);
     }
+
+    Predicate<WebDriver> predicate = new Predicate<WebDriver>()
+    {
+        @Override
+        public boolean test(WebDriver webDriver) {
+            return false;
+        }
+    };
 
 //    @Then("^the awards and nominations table contains$")
 //    public void theAwardsAndNominationsTableContains(final DataTable dataTable) throws Throwable {
