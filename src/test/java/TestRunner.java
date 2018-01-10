@@ -1,10 +1,10 @@
 import cucumber.api.CucumberOptions;
 import cucumber.api.testng.TestNGCucumberRunner;
 import cucumber.api.testng.CucumberFeatureWrapper;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+
+import static testUtils.WebDriverFactory.instantiateDriver;
+import static testUtils.WebDriverFactory.quitDriver;
 
 @CucumberOptions(
             features = "src/test/resources/features",
@@ -25,6 +25,12 @@ import org.testng.annotations.Test;
             testNGCucumberRunner = new TestNGCucumberRunner(this.getClass());
         }
 
+        @BeforeTest
+        public void beforeTests()
+        {
+            instantiateDriver();
+        }
+
         @Test(description = "Runs Cucumber Feature", dataProvider = "getFeatures")
         public void feature(CucumberFeatureWrapper cucumberFeature) {
             testNGCucumberRunner.runCucumber(cucumberFeature.getCucumberFeature());
@@ -37,6 +43,7 @@ import org.testng.annotations.Test;
 
         @AfterClass(alwaysRun = true)
         public void tearDownClass() throws Exception {
+            quitDriver();
             testNGCucumberRunner.finish();
         }
 }

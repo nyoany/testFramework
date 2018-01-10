@@ -9,24 +9,39 @@ import java.io.File;
 
 public class WebDriverFactory
 {
-    public static WebDriver getDriver()
+    private static WebDriver webDriver;
+
+    public static WebDriver instantiateDriver()
     {
-        String browserName = new TestProperties().getBrowser();
-        switch (browserName)
+        if(webDriver == null) {
+            String browserName = new TestProperties().getBrowser();
+            switch (browserName) {
+                case "chrome":
+                    System.setProperty("webdriver.chrome.driver", "C:\\Users\\onechiforescu\\IdeaProjects\\chromedriver_win32\\chromedriver.exe");
+                    webDriver = new ChromeDriver();
+                    break;
+                case "ie":
+                    webDriver = new InternetExplorerDriver();
+                    break;
+                default:
+                    File firefoxPathBinary = new File("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
+                    System.setProperty("webdriver.firefox.bin", firefoxPathBinary.getAbsolutePath());
+                    webDriver = new FirefoxDriver();
+            }
+        }
+        return webDriver;
+    }
+
+    public static void quitDriver()
+    {
+        if(webDriver != null)
         {
-            case "chrome" :
-                System.setProperty("webdriver.chrome.driver", "D:\\programe\\chrome driver\\chromedriver_win32\\chromedriver.exe");
-                return new ChromeDriver();
-            case "ie" : return new InternetExplorerDriver();
-            default:
-                File firefoxPathBinary = new File("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
-                System.setProperty("webdriver.firefox.bin", firefoxPathBinary.getAbsolutePath());
-                return new FirefoxDriver();
+            webDriver.quit();
         }
     }
 
-    public static void setWebDriver(WebDriver webDriver)
+    public static WebDriver getDriver()
     {
-
+        return webDriver;
     }
 }
