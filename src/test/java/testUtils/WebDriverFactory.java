@@ -74,6 +74,10 @@ public class WebDriverFactory
 
     public static WebDriver getDriver()
     {
+        if(webDriver == null)
+        {
+            instantiateDriver();
+        }
         return webDriver;
     }
 }
