@@ -7,15 +7,3 @@ Feature:Test 5
     Then the awards and nominations table contains
       |Year|Organisation|Award|Work|Result|
       |2013|BRIT Awards|British Single of the Year[113]|"Impossible"|Nominated[114]|
-
-  Scenario Outline: calculating things
-    Given there are <cows> cows
-    When I count them and add <add>
-    Then the sum is of <total> cows
-
-    Examples:
-      |cows|add|total|
-      |12|3|15|
-      |4|4|9|
-      |1|1|2|
-      |5|15|21|
