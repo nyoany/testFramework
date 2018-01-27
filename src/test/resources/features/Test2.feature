@@ -6,7 +6,7 @@ Feature:Google
     When the user clicks on the link https://en.wikipedia.org/wiki/James_Arthur
     Then the awards and nominations table contains
       |Year|Organisation|Award|Work|Result|
-      |2013|BRIT Awards|British Single of the Year[113]|"Impossible"|Nominated[114]|
+      |2013|BRIT Awards|British Single of the Year[113]|"Impossssible"|Nominated[114]|
 
   Scenario Outline: calculating things
     Given there are <cows> cows
