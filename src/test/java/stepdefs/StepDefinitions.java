@@ -16,6 +16,8 @@ import org.testng.AssertJUnit;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -221,11 +223,13 @@ public class StepDefinitions {
     @After
     public void tearDown(Scenario result) {
         if (result.isFailed()) {
+            String identifier = "_" + DateTimeFormatter.ofPattern("yyy-MM-dd-HH-mm-ss").format(LocalDateTime.now());
 
             File scrFile = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);
             try
             {
-                FileUtils.copyFile(scrFile, new File("target/errorScreenshots/" + result.getName() + System.currentTimeMillis() + ".png"));
+                FileUtils.copyFile(scrFile, new File("target/errorScreenshots/" + result.getName().replace(" ", "_") +
+                        identifier + ".png"));
             }
             catch (IOException e) {
                 e.printStackTrace();
