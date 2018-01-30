@@ -49,7 +49,7 @@ public class WebDriverFactory
                 case "chrome":
                     System.setProperty("webdriver.chrome.driver", "D:\\programe\\chromeDriver\\chromedriver_win32\\chromedriver.exe");
                     ChromeOptions options = new ChromeOptions();
-                    options.addArguments("headless");
+                   // options.addArguments("headless");
                     webDriver = new ChromeDriver(options);
                     break;
                 case "ie":

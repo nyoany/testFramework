@@ -11,7 +11,6 @@ import org.testng.annotations.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 
 import static testUtils.WebDriverFactory.getDriver;
 import static testUtils.WebDriverFactory.instantiateDriver;
@@ -58,18 +57,4 @@ import static testUtils.WebDriverFactory.quitDriver;
             quitDriver();
             testNGCucumberRunner.finish();
         }
-
-    @AfterMethod
-    public void tearDown(ITestResult result) {
-        if (result.getStatus() == ITestResult.FAILURE) {
-
-            File scrFile = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);
-            try {
-                FileUtils.copyFile(scrFile, new File("target/errorScreenshots/" + result.getName() + System.currentTimeMillis() + ".png"));
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 }

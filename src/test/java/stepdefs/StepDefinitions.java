@@ -2,18 +2,20 @@ package stepdefs;
 
 import components.NominationsTable;
 import cucumber.api.DataTable;
+import cucumber.api.Scenario;
+import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.AssertJUnit;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -215,4 +217,19 @@ public class StepDefinitions {
 //        List<List<String>> data = usercredentials.raw();
 //
 //    }
+
+    @After
+    public void tearDown(Scenario result) {
+        if (result.isFailed()) {
+
+            File scrFile = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);
+            try
+            {
+                FileUtils.copyFile(scrFile, new File("target/errorScreenshots/" + result.getName() + System.currentTimeMillis() + ".png"));
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
