@@ -47,7 +47,7 @@ public class WebDriverFactory
                     }
                     break;
                 case "chrome":
-                    System.setProperty("webdriver.chrome.driver", "C:\\proiecte\\boats\\twli\\testFramework\\src\\main\\resources\\chromedriver.exe");
+                    System.setProperty("webdriver.chrome.driver", "C:\\proiecte\\boats\\twli\\chromedriver.exe");
                     ChromeOptions options = new ChromeOptions();
                     options.addArguments("headless");
                     webDriver = new ChromeDriver(options);
