@@ -25,6 +25,7 @@ import static testUtils.WebDriverFactory.quitDriver;
                     "pretty",
                     "html:target/cucumber-reports/cucumber-pretty",
                     "json:target/cucumber-reports/CucumberTestReport.json",
+                    "json:target/cucumber.json",
                     "usage:target/cucumber-usage.json",
                     "rerun:target/cucumber-reports/rerun.txt"
             })
